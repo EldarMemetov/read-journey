@@ -1,0 +1,120 @@
+.formContainer {
+  border-radius: 30px;
+
+  background: #1f1f1f;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleReading {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.readingSpan {
+  color: rgba(227, 227, 227, 0.5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.inputLabel {
+  font-size: 14px;
+  line-height: 1.2;
+  color: #f9f9f9;
+  margin-bottom: 8px;
+}
+
+.inputField {
+  border-radius: 12px;
+  padding: 14px 148px 14px 14px;
+
+  background: #262626;
+  border: none;
+  color: #f9f9f9;
+  font-size: 14px;
+}
+
+.inputField::placeholder {
+  color: #686868;
+}
+
+.inputError {
+  font-size: 12px;
+  color: #ff6b6b;
+  margin-top: 5px;
+}
+
+.buttonPassword {
+  position: absolute;
+  right: 10px;
+  top: 60%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #f9f9f9;
+  font-size: 16px;
+}
+
+.submitButton {
+  border-radius: 30px;
+  padding: 12px 29px;
+  width: 140px;
+  height: 42px;
+  background: #f9f9f9;
+  color: #1f1f1f;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.2;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 12px;
+  margin-bottom: 40px;
+}
+
+.submitButton:hover {
+  background: #e6e6e6;
+}
+
+.accountText {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #686868;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.accountText:hover {
+  color: #868383;
+}
+.containerButton {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}

@@ -1,0 +1,12 @@
+.homeImage {
+  width: 90%;
+  height: auto;
+}
+.homeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px 40px 0;
+  background: #1f1f1f;
+  border-radius: 30px;
+}
