@@ -1,6 +1,5 @@
 .formContainer {
   border-radius: 30px;
-
   background: #1f1f1f;
   padding: 20px;
   display: flex;
@@ -15,7 +14,7 @@
   letter-spacing: 0.02em;
   color: #f9f9f9;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 .readingSpan {
@@ -44,16 +43,40 @@
 
 .inputField {
   border-radius: 12px;
-  padding: 14px 148px 14px 14px;
-
+  padding: 14px 0px 14px 14px;
   background: #262626;
-  border: none;
+  border: 2px solid #262626; /* Начальное состояние */
   color: #f9f9f9;
   font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.inputField:focus {
+  outline: none;
+  background: #262626;
+  border-color: inherit;
+}
+
+.inputField.valid {
+  border-color: #4caf50 !important;
+}
+
+.inputField.error {
+  border-color: #ff6b6b !important;
 }
 
 .inputField::placeholder {
   color: #686868;
+}
+
+.inputField:-webkit-autofill {
+  background: #262626 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #262626 inset !important;
+  -webkit-text-fill-color: #f9f9f9 !important;
+}
+
+.inputField:focus {
+  border: none;
 }
 
 .inputError {
@@ -81,7 +104,6 @@
   height: 42px;
   background: #f9f9f9;
   color: #1f1f1f;
-  font-family: var(--font-family);
   font-weight: 600;
   font-size: 14px;
   line-height: 1.2;
@@ -97,7 +119,6 @@
 }
 
 .accountText {
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 12px;
   line-height: 117%;
@@ -117,4 +138,95 @@
   display: flex;
   gap: 14px;
   align-items: baseline;
+}
+.icon {
+  font-size: 18px;
+  color: #ffffff;
+}
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.iconButton {
+  position: absolute;
+  right: 10px;
+  top: 30%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  fill: #ffffff;
+  transition: fill 0.3s ease;
+  color: #e6e6e6;
+}
+
+.icon:hover {
+  fill: #f1f2f3;
+}
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputField {
+  width: 100%;
+  padding-right: 40px;
+  border-radius: 12px;
+  padding: 14px 14px;
+  background: #262626;
+  border: 2px solid #262626;
+  color: #f9f9f9;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.inputField.valid {
+  border-color: #4caf50 !important;
+}
+
+.inputField.error {
+  border-color: #ff6b6b !important;
+}
+
+.inputField::placeholder {
+  color: #686868;
+}
+
+.icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: fill 0.3s ease;
+}
+
+.iconError {
+  fill: red;
+}
+
+.iconSuccess {
+  fill: green;
+}
+.inputWrapper {
+  position: relative;
+}
+
+.inputWrapperWithIcon .icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iconButton {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
 }

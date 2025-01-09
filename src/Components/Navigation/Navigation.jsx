@@ -10,6 +10,9 @@ export default function Navigation() {
       <NavLink nk className={style.navLink} to="/register">
         Register
       </NavLink>
+      <NavLink nk className={style.navLink} to="/recommended">
+        recommended
+      </NavLink>
     </nav>
   );
 }

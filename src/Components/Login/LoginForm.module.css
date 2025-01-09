@@ -14,7 +14,7 @@
   letter-spacing: 0.02em;
   color: #f9f9f9;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 .readingSpan {
@@ -43,17 +43,34 @@
 
 .inputField {
   border-radius: 12px;
-  padding: 14px 148px 14px 14px;
+  padding: 14px 0px 14px 14px;
   background: #262626;
   border: none;
   color: #f9f9f9;
   font-size: 14px;
+  border: 2px solid #262626;
+  width: 90%;
 }
 
 .inputField::placeholder {
   color: #686868;
 }
+.inputField:focus {
+  outline: none;
+  background: #262626;
+}
 
+.inputField.valid {
+  border-color: #4caf50;
+}
+
+.inputField.error {
+  border-color: #ff6b6b;
+}
+
+.inputField::placeholder {
+  color: #686868;
+}
 .inputError {
   font-size: 12px;
   color: #ff6b6b;
@@ -111,4 +128,53 @@
   display: flex;
   gap: 14px;
   align-items: baseline;
+}
+.inputField:focus {
+  background: #262626;
+  outline: none;
+  box-shadow: none;
+}
+
+.inputField:-webkit-autofill {
+  background: #262626 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #262626 inset !important;
+  -webkit-text-fill-color: #f9f9f9 !important;
+}
+
+.icon {
+  font-size: 18px;
+  color: #ffffff;
+}
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.iconButton {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.inputWrapper {
+  position: relative;
+}
+
+.inputWrapperWithIcon .icon {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iconButton {
+  position: absolute;
+  right: 45px;
+  top: 50%;
+  transform: translateY(-50%);
 }

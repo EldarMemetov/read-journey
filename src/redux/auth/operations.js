@@ -16,12 +16,15 @@ const clearAuthHeader = () => {
 export const signup = createAsyncThunk(
   "users/signup",
   async (newUser, thunkAPI) => {
+    console.log("Sending data to server:", newUser);
     try {
       const response = await axios.post("users/signup", newUser);
+      console.log("Response from server:", response.data);
       setAuthHeader(response.data.token);
       toast.success("Registration successful!");
       return response.data;
     } catch (error) {
+      console.error("Error during signup:", error.response);
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
@@ -36,17 +39,25 @@ export const signup = createAsyncThunk(
 export const signin = createAsyncThunk(
   "users/signin",
   async (credentials, thunkAPI) => {
+    console.log("Attempting login with credentials:", credentials);
+
     try {
       const response = await axios.post("users/signin", credentials);
+      console.log("Login successful, server response:", response.data);
+
       setAuthHeader(response.data.token);
       toast.success("Login successful!");
+
       return response.data;
     } catch (error) {
+      console.error("Login failed, error response:", error.response);
+
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "Login failed. Please try again.";
       toast.error(errorMessage);
+
       return thunkAPI.rejectWithValue(errorMessage);
     }
   }
@@ -94,8 +105,17 @@ export const signout = createAsyncThunk(
   "users/signout",
   async (_, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+
+      if (!token) {
+        throw new Error("No token found for logout.");
+      }
+
+      setAuthHeader(token);
       await axios.post("users/signout");
       clearAuthHeader();
+
       toast.success("Logged out successfully!");
     } catch (error) {
       const errorMessage =
@@ -103,6 +123,7 @@ export const signout = createAsyncThunk(
         error.message ||
         "Logout failed. Please try again.";
       toast.error(errorMessage);
+
       return thunkAPI.rejectWithValue(errorMessage);
     }
   }
