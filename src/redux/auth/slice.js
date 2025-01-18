@@ -10,6 +10,7 @@ import {
 const initialState = {
   user: null,
   token: null,
+  refreshToken: null,
   isLoading: false,
   error: null,
 };
@@ -33,9 +34,10 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signup.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
         state.user = action.payload.user;
+        state.isLoading = false;
       })
       .addCase(signup.rejected, (state, action) => {
         state.isLoading = false;
@@ -47,13 +49,15 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signin.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
         state.user = action.payload.user;
+        state.isLoading = false;
       })
       .addCase(signin.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        state.refreshToken = action.payload.refreshToken;
       })
 
       .addCase(getCurrentUser.fulfilled, (state, action) => {
@@ -64,8 +68,8 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
       })
       .addCase(refreshToken.rejected, (state, action) => {
         state.isLoading = false;
@@ -75,6 +79,7 @@ const authSlice = createSlice({
       .addCase(signout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
+        state.refreshToken = null;
       });
   },
 });

@@ -16,6 +16,8 @@ const RecommendedPage = lazy(() =>
 );
 const NotFoundPage = lazy(() => import("../../Page/NotFoundPage/NotFoundPage"));
 
+const MyLibrary = lazy(() => import("../../Page/MyLibrary/MyLibrary"));
+
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
@@ -47,6 +49,7 @@ function App() {
                 path="/"
                 element={<Navigate to="/recommended" replace />}
               />
+              <Route path="/library" element={<MyLibrary />} />
             </>
           )}
           <Route path="*" element={<NotFoundPage />} />

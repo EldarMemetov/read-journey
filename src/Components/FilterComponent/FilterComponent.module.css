@@ -1,0 +1,50 @@
+.containerFilter {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.filtersTitle {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin-left: 10px;
+}
+.input {
+  border-radius: 12px;
+  padding: 14px 167px 14px 14px;
+  background: #262626;
+  border: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+
+.button {
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: 0.02em;
+  background: transparent;
+  color: #f9f9f9;
+  margin-right: auto;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.button:hover {
+  background-color: #1f1f20;
+}

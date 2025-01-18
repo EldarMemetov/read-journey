@@ -1,7 +1,11 @@
+import FilterComponent from "../../Components/FilterComponent/FilterComponent";
+import StartWorkout from "../../Components/StartWorkout/StartWorkout";
+
 export default function RecommendedPage() {
   return (
     <div>
-      <h1>RecommendedPage</h1>
+      <FilterComponent />
+      <StartWorkout />
     </div>
   );
 }

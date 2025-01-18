@@ -13,6 +13,9 @@ export default function Navigation() {
       <NavLink nk className={style.navLink} to="/recommended">
         recommended
       </NavLink>
+      <NavLink className={style.navLink} to="/library">
+        My Library
+      </NavLink>
     </nav>
   );
 }

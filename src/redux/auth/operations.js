@@ -83,19 +83,28 @@ export const getCurrentUser = createAsyncThunk(
 
 // Get fresh token (refresh token)
 export const refreshToken = createAsyncThunk(
-  "users/refresh",
+  "auth/refreshToken",
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.refreshToken; // Держите refreshToken в store
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("No refresh token available");
+    }
+
     try {
-      const response = await axios.get("users/current/refresh");
-      setAuthHeader(response.data.token);
-      return response.data;
+      // Обновляем токен через API
+      const response = await axios.post("auth/refresh", { token });
+
+      // Устанавливаем новый токен в заголовок
+      setAuthHeader(response.data.accessToken);
+
+      return {
+        token: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Unable to refresh token.";
-      toast.error(errorMessage);
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue(error, "Token refresh failed");
     }
   }
 );
