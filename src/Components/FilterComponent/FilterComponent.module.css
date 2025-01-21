@@ -43,6 +43,7 @@
   margin-right: auto;
   margin-top: 12px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .button:hover {

@@ -37,12 +37,14 @@ export default function StartWorkout() {
               My library
             </Link>
           </p>
-          <Icon
-            name="icon-log-in"
-            size={18}
-            color="green"
-            className={style.icon}
-          />
+          <button className={style.buttonNext}>
+            <Icon
+              name="icon-log-in"
+              size={18}
+              color="green"
+              className={style.icon}
+            />
+          </button>
         </div>
       </div>
     </section>

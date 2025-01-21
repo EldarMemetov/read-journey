@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { selectIsAuthenticated } from "../../redux/auth/selectors";
-const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+import { selectAuthToken } from "../../redux/auth/selectors";
 
-  if (!isAuthenticated) {
+const ProtectedRoute = ({ children }) => {
+  const token = useSelector(selectAuthToken);
+
+  // Дополнительная проверка для действительности токена
+  if (!token) {
     return <Navigate to="/register" replace />;
   }
+
   return children;
 };
 

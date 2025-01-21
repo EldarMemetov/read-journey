@@ -1,4 +1,5 @@
 import FilterComponent from "../../Components/FilterComponent/FilterComponent";
+import RecommendedBooks from "../../Components/RecommendedBooks/RecommendedBooks";
 import StartWorkout from "../../Components/StartWorkout/StartWorkout";
 
 export default function RecommendedPage() {
@@ -6,6 +7,7 @@ export default function RecommendedPage() {
     <div>
       <FilterComponent />
       <StartWorkout />
+      <RecommendedBooks />
     </div>
   );
 }
