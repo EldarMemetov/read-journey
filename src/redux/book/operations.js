@@ -7,17 +7,16 @@ import { refreshToken } from "../auth/operations";
 // Get recommended books
 export const getRecommendedBooks = createAsyncThunk(
   "books/getRecommended",
-  async (_, { getState, dispatch }) => {
+  async ({ page, limit }, { getState, dispatch }) => {
     const { auth } = getState();
-
     try {
       const response = await axios.get(`${API_URL}/books/recommend`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
+        params: { page, limit },
       });
-      console.log(response.data); // Добавьте эту строку для отладки
-      return response.data;
+      return response.data; // Сервер повертає totalPages, page, та результати
     } catch (error) {
       if (error.response?.status === 401) {
         try {
@@ -27,6 +26,7 @@ export const getRecommendedBooks = createAsyncThunk(
             headers: {
               Authorization: `Bearer ${updatedAuth.token}`,
             },
+            params: { page, limit },
           });
           return retryResponse.data;
         } catch (refreshError) {

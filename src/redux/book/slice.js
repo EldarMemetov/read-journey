@@ -13,6 +13,8 @@ import {
 
 const initialState = {
   items: [],
+  totalPages: 1,
+  currentPage: 1,
   recommended: [],
   isLoading: false,
   error: null,
@@ -32,10 +34,12 @@ const booksReducer = createSlice({
       .addCase(getRecommendedBooks.fulfilled, (state, action) => {
         state.isLoading = false;
         state.recommended = action.payload.results;
+        state.totalPages = action.payload.totalPages;
+        state.currentPage = action.payload.page;
       })
       .addCase(getRecommendedBooks.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
 
       // Add new book

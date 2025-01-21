@@ -4,4 +4,115 @@
   line-height: 100%;
   letter-spacing: -0.02em;
   color: #f9f9f9;
+  text-align: right;
+}
+
+.slideshowContainer {
+  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 30px;
+  background: #1f1f1f;
+  height: 350px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+.containerButton {
+  display: flex;
+  gap: 120px;
+  align-items: center;
+  margin-top: 20px;
+}
+.buttonNext {
+  display: flex;
+  gap: 10px;
+}
+.carousel {
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.carouselList {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease-in-out;
+  margin-top: 20px;
+}
+
+.prevArrow,
+.nextArrow {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgb(56, 55, 55);
+}
+
+.prevArrow:disabled,
+.nextArrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.modalContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+}
+.titleBook {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+.author {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  color: #686868;
+}
+
+.totalPages {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #f9f9f9;
+}
+.buttonLibrary {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  padding: 12px 24px;
+  background: transparent;
+  margin-top: 18px;
+  cursor: pointer;
+}
+.img {
+  margin-bottom: 16px;
+}
+.bookItem {
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
