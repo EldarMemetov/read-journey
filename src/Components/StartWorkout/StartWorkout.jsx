@@ -37,14 +37,14 @@ export default function StartWorkout() {
               My library
             </Link>
           </p>
-          <button className={style.buttonNext}>
+          <Link to="/library" className={style.libraryLink}>
             <Icon
               name="icon-log-in"
               size={18}
               color="green"
               className={style.icon}
             />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

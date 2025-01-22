@@ -7,16 +7,28 @@ import { refreshToken } from "../auth/operations";
 // Get recommended books
 export const getRecommendedBooks = createAsyncThunk(
   "books/getRecommended",
-  async ({ page, limit }, { getState, dispatch }) => {
+  async ({ page, limit, filters }, { getState, dispatch }) => {
     const { auth } = getState();
+
+    // Add default values for filters in case they are undefined
+    const safeFilters = {
+      bookTitle: filters?.bookTitle || "",
+      author: filters?.author || "",
+    };
+
     try {
       const response = await axios.get(`${API_URL}/books/recommend`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
-        params: { page, limit },
+        params: {
+          page,
+          limit,
+          title: safeFilters.bookTitle,
+          author: safeFilters.author,
+        },
       });
-      return response.data; // Сервер повертає totalPages, page, та результати
+      return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
         try {

@@ -1,11 +1,16 @@
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { setFilters } from "../../redux/book/slice";
 import styles from "./FilterComponent.module.css";
+
 export default function FilterComponent() {
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(setFilters(data));
   };
+
   return (
     <div className={styles.containerFilter}>
       <h3 className={styles.filtersTitle}>Filters:</h3>
@@ -23,7 +28,7 @@ export default function FilterComponent() {
           className={styles.input}
         />
         <button type="submit" className={styles.button}>
-          To apply
+          Apply Filters
         </button>
       </form>
     </div>

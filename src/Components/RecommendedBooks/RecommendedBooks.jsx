@@ -6,6 +6,7 @@ import {
   selectBooksError,
   selectCurrentPage,
   selectTotalPages,
+  selectFilters,
 } from "../../redux/book/selectors";
 import { getRecommendedBooks } from "../../redux/book/operations";
 import { useSwipeable } from "react-swipeable";
@@ -21,12 +22,13 @@ export default function RecommendedBooks() {
   const error = useSelector(selectBooksError);
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
-
-  const [selectedBook, setSelectedBook] = useState(null); // Модальное окно
+  const filters = useSelector(selectFilters);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
-    dispatch(getRecommendedBooks({ page: currentPage, limit: 2 }));
-  }, [dispatch, currentPage]);
+    console.log("filters:", filters); // Log filters to check its value
+    dispatch(getRecommendedBooks({ page: currentPage, limit: 2, filters }));
+  }, [dispatch, currentPage, filters]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {

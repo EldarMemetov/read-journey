@@ -18,12 +18,20 @@ const initialState = {
   recommended: [],
   isLoading: false,
   error: null,
+  filters: {
+    bookTitle: "",
+    author: "",
+  },
 };
 
 const booksReducer = createSlice({
   name: "books",
   initialState,
-  reducers: {},
+  reducers: {
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Fetch recommended books
@@ -155,5 +163,5 @@ const booksReducer = createSlice({
       });
   },
 });
-
+export const { setFilters } = booksReducer.actions;
 export default booksReducer.reducer;
