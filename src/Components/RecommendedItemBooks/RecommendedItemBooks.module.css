@@ -13,4 +13,8 @@
   letter-spacing: -0.02em;
   color: #f9f9f9;
   width: 100px;
+  margin-bottom: 5px;
+}
+.img {
+  margin-bottom: 10px;
 }

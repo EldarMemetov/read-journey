@@ -5,7 +5,6 @@ import { selectAuthToken } from "../../redux/auth/selectors";
 const ProtectedRoute = ({ children }) => {
   const token = useSelector(selectAuthToken);
 
-  // Дополнительная проверка для действительности токена
   if (!token) {
     return <Navigate to="/register" replace />;
   }

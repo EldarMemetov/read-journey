@@ -49,11 +49,17 @@ export default function RecommendedBooks() {
 
   const handleCloseModal = () => setSelectedBook(null);
 
-  if (isLoading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div {...swipeHandlers} className={style.slideshowContainer}>
+      {isLoading && (
+        <div className={style.loadingContainer}>
+          <div className={style.loadingText}>
+            <Loading />
+          </div>
+        </div>
+      )}
       <div className={style.containerButton}>
         <h2 className={style.title}>Recommended</h2>
         <div className={style.buttonNext}>
