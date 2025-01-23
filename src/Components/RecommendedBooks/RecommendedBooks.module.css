@@ -9,7 +9,7 @@
 
 .slideshowContainer {
   overflow: hidden;
-  padding: 20px;
+  padding: 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -28,7 +28,6 @@
   display: flex;
   gap: 120px;
   align-items: center;
-  margin-top: 20px;
 }
 .buttonNext {
   display: flex;

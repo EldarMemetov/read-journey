@@ -1,13 +1,18 @@
 import style from "./RecommendedItemBooks.module.css";
 
-export default function RecommendedItemBooks({ book, onClick }) {
+export default function RecommendedItemBooks({
+  book,
+  onClick,
+  imageWidth,
+  imageHeight,
+}) {
   return (
     <li className={style.bookItem} onClick={onClick}>
       <img
         src={book.imageUrl}
         alt={book.title}
-        width="137"
-        height="208"
+        width={imageWidth}
+        height={imageHeight}
         className={style.img}
       />
       <h3 className={style.title}>{book.title}</h3>

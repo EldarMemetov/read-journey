@@ -8,7 +8,12 @@ export default function RecommendedPage() {
       <FilterComponent />
       <div className={style.container}>
         <StartWorkout />
-        <RecommendedBooks />
+        <RecommendedBooks
+          limit={2}
+          imageWidth={137}
+          imageHeight={208}
+          title="Recommended"
+        />
       </div>
     </div>
   );

@@ -1,0 +1,21 @@
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.libraryLink {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #686868;
+}
+.buttonNext {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
