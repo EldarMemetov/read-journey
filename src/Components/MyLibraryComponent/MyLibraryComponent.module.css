@@ -1,7 +1,23 @@
 .container {
-  border-radius: 30px;
-  width: 250px;
-  height: 528px;
+  overflow: hidden;
   padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 30px;
   background: #1f1f1f;
+}
+.containerMyLibrary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
 }

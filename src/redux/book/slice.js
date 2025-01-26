@@ -56,8 +56,14 @@ const booksReducer = createSlice({
         state.error = null;
       })
       .addCase(addBook.fulfilled, (state, action) => {
+        // state.items.push(action.payload);
         state.isLoading = false;
-        state.items.push(action.payload);
+        const isBookExist = state.items.some(
+          (book) => book.id === action.payload.id
+        );
+        if (!isBookExist) {
+          state.items.push(action.payload);
+        }
       })
       .addCase(addBook.rejected, (state, action) => {
         state.isLoading = false;

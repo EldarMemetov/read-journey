@@ -17,13 +17,6 @@
   background: #1f1f1f;
 }
 
-.title {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 100%;
-  letter-spacing: -0.02em;
-  color: #f9f9f9;
-}
 .containerButton {
   display: flex;
   gap: 120px;

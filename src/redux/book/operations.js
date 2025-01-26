@@ -10,7 +10,6 @@ export const getRecommendedBooks = createAsyncThunk(
   async ({ page, limit, filters }, { getState, dispatch }) => {
     const { auth } = getState();
 
-    // Add default values for filters in case they are undefined
     const safeFilters = {
       bookTitle: filters?.bookTitle || "",
       author: filters?.author || "",
@@ -54,21 +53,52 @@ export const getRecommendedBooks = createAsyncThunk(
 // Add a new book
 export const addBook = createAsyncThunk(
   "books/addBook",
-  async (bookData, { getState, thunkAPI }) => {
+  async (bookData, { getState, dispatch, thunkAPI }) => {
     const { auth } = getState();
     try {
-      const response = await axios.post(`${API_URL}/books/add`, bookData, {
+      const payload = {
+        title: bookData.title,
+        author: bookData.author,
+        totalPages: bookData.totalPages || 0,
+      };
+      const response = await axios.post(`${API_URL}/books/add`, payload, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
       toast.success("Book added successfully!");
+
+      dispatch(getUserBooks());
       return response.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to add the book.";
+      toast.error(errorMessage);
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Операция для удаления книги
+export const deleteBook = createAsyncThunk(
+  "books/deleteBook",
+  async (bookId, { getState, dispatch, thunkAPI }) => {
+    const { auth } = getState();
+    try {
+      await axios.delete(`${API_URL}/books/remove/${bookId}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      toast.success("Book deleted successfully!");
+
+      dispatch(getUserBooks());
+      return bookId;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
-        "Failed to add the book.";
+        "Failed to delete the book.";
       toast.error(errorMessage);
       return thunkAPI.rejectWithValue(errorMessage);
     }
@@ -97,30 +127,6 @@ export const addBookFromRecommendations = createAsyncThunk(
         error.response?.data?.message ||
         error.message ||
         "Failed to add the book from recommendations.";
-      toast.error(errorMessage);
-      return thunkAPI.rejectWithValue(errorMessage);
-    }
-  }
-);
-
-// Delete a user's book
-export const deleteBook = createAsyncThunk(
-  "books/deleteBook",
-  async (bookId, { getState, thunkAPI }) => {
-    const { auth } = getState();
-    try {
-      await axios.delete(`${API_URL}/books/remove/${bookId}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      toast.success("Book deleted successfully!");
-      return bookId;
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Failed to delete the book.";
       toast.error(errorMessage);
       return thunkAPI.rejectWithValue(errorMessage);
     }

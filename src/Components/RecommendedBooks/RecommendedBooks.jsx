@@ -8,11 +8,16 @@ import {
   selectTotalPages,
   selectFilters,
 } from "../../redux/book/selectors";
-import { getRecommendedBooks } from "../../redux/book/operations";
+import {
+  getRecommendedBooks,
+  addBookFromRecommendations,
+} from "../../redux/book/operations";
 import { useSwipeable } from "react-swipeable";
 import Loading from "../Loading/Loading";
 import RecommendedItemBooks from "../RecommendedItemBooks/RecommendedItemBooks";
 import ModalRecommended from "../ModalRecommended/ModalRecommended";
+import ModalAddBook from "../ModalAddBook/ModalAddBook";
+import toast from "react-hot-toast";
 import style from "./RecommendedBooks.module.css";
 
 export default function RecommendedBooks({
@@ -32,11 +37,34 @@ export default function RecommendedBooks({
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const filters = useSelector(selectFilters);
+  const libraryBooks = useSelector((state) => state.books.items);
+
   const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(getRecommendedBooks({ page: currentPage, limit, filters }));
   }, [dispatch, currentPage, filters, limit]);
+
+  const handleAddToLibrary = async (book) => {
+    const isAlreadyAdded = libraryBooks.some(
+      (libraryBook) => libraryBook._id === book._id
+    );
+
+    if (isAlreadyAdded) {
+      toast.error("This book is already in your library!");
+      return;
+    }
+
+    try {
+      await dispatch(addBookFromRecommendations(book._id)).unwrap();
+      toast.success("Book added to library successfully!");
+      setIsModalVisible(true);
+    } catch (error) {
+      toast.error("Failed to add the book to the library.");
+      console.error(error);
+    }
+  };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -58,6 +86,8 @@ export default function RecommendedBooks({
   });
 
   const handleCloseModal = () => setSelectedBook(null);
+
+  const handleCloseAddBookModal = () => setIsModalVisible(false);
 
   if (error) return <div>Error: {error}</div>;
 
@@ -137,10 +167,17 @@ export default function RecommendedBooks({
                 <p className={style.totalPages}>
                   {selectedBook.totalPages} pages
                 </p>
-                <button className={style.buttonLibrary}>Add to library</button>
+                <button
+                  className={style.buttonLibrary}
+                  onClick={() => handleAddToLibrary(selectedBook)}
+                >
+                  Add to library
+                </button>
               </div>
             </ModalRecommended>
           )}
+
+          {isModalVisible && <ModalAddBook onClose={handleCloseAddBookModal} />}
         </div>
       </div>
     </>
