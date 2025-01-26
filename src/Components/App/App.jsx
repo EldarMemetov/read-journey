@@ -22,6 +22,7 @@ const RecommendedPage = lazy(() =>
 );
 const NotFoundPage = lazy(() => import("../../Page/NotFoundPage/NotFoundPage"));
 const MyLibrary = lazy(() => import("../../Page/MyLibrary/MyLibrary"));
+const MyReading = lazy(() => import("../../Page/MyReading/MyReading"));
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
                 element={<Navigate to="/recommended" replace />}
               />
               <Route path="/library" element={<MyLibrary />} />
+              <Route path="/my-reading" element={<MyReading />} />
             </>
           )}
           <Route path="*" element={<NotFoundPage />} />

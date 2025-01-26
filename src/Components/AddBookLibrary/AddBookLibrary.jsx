@@ -5,6 +5,7 @@ import { getUserBooks, deleteBook } from "../../redux/book/operations";
 import style from "./AddBookLibrary.module.css";
 import bookPlaceholder from "../../image/book.png";
 import { FiTrash2 } from "react-icons/fi";
+import ModalStartReading from "../ModalStartReading/ModalStartReading";
 export default function AddBookLibrary() {
   const dispatch = useDispatch();
   const { items: books, isLoading } = useSelector((state) => state.books);
@@ -14,6 +15,16 @@ export default function AddBookLibrary() {
   const booksPerPage = 1;
   const totalPages = Math.ceil((books?.length || 0) / booksPerPage);
 
+  const [selectedBook, setSelectedBook] = useState(null);
+  const image =
+    "https://res.cloudinary.com/drfvfno3o/image/upload/v1699733055/books/8.webp";
+  const handleOpenModal = (book) => {
+    setSelectedBook(book);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBook(null);
+  };
   useEffect(() => {
     dispatch(getUserBooks());
   }, [dispatch]);
@@ -54,7 +65,11 @@ export default function AddBookLibrary() {
   if (!books || books.length === 0) {
     return (
       <div className={style.placeholder}>
-        <img src={bookPlaceholder} alt="Placeholder" />
+        <img
+          src={bookPlaceholder}
+          alt="Placeholder"
+          className={style.imgPlaceholder}
+        />
         <p className={style.titleInfo}>
           To start training, add
           <span className={style.spanInfo}> some of your books</span> or from
@@ -91,7 +106,13 @@ export default function AddBookLibrary() {
         <ul className={style.bookList}>
           {currentBooks.map((book) => (
             <li key={book._id} className={style.bookItem}>
-              <img src={book.imageUrl} alt="img" className={style.bookImage} />
+              <img
+                src={book.imageUrl || image}
+                alt="img"
+                className={style.bookImage}
+                onClick={() => handleOpenModal(book)}
+              />
+
               <div className={style.bookDetails}>
                 <h3 className={style.titleBook}>
                   {book.title.length > 10 && expandedBook !== book._id
@@ -120,6 +141,9 @@ export default function AddBookLibrary() {
           ))}
         </ul>
       </div>
+      {selectedBook && (
+        <ModalStartReading book={selectedBook} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }
