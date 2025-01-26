@@ -6,7 +6,7 @@ export default function ModalStartReading({ book, onClose }) {
   const navigate = useNavigate();
 
   const handleStartReading = () => {
-    navigate("/my-reading");
+    navigate("/my-reading", { state: { book } });
   };
   const image =
     "https://res.cloudinary.com/drfvfno3o/image/upload/v1699733055/books/8.webp";

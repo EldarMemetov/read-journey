@@ -236,6 +236,7 @@ export const deleteReading = createAsyncThunk(
 );
 
 // Get book info by ID
+
 export const getBookById = createAsyncThunk(
   "books/getById",
   async (bookId, { getState, thunkAPI }) => {
@@ -252,7 +253,6 @@ export const getBookById = createAsyncThunk(
         error.response?.data?.message ||
         error.message ||
         "Failed to fetch book info.";
-      toast.error(errorMessage);
       return thunkAPI.rejectWithValue(errorMessage);
     }
   }
