@@ -45,7 +45,7 @@
   border-radius: 12px;
   padding: 14px 0px 14px 14px;
   background: #262626;
-  border: 2px solid #262626; /* Начальное состояние */
+  border: 2px solid #262626;
   color: #f9f9f9;
   font-size: 14px;
   transition: border-color 0.3s ease;
@@ -229,4 +229,55 @@
   right: 25px;
   top: 50%;
   transform: translateY(-50%);
+}
+@media screen and (min-width: 768px) {
+  .formContainer {
+    border-radius: 30px;
+    width: 704px;
+    height: 960px;
+  }
+  .titleReading {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 94%;
+    letter-spacing: 0.02em;
+    width: 440px;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+  .inputField {
+    border-radius: 12px;
+    padding: 16px 16px;
+    width: 472px;
+  }
+  .form {
+    align-items: center;
+  }
+  .submitButton {
+    border-radius: 30px;
+    padding: 16px 54px;
+    width: 225px;
+    height: 52px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0.02em;
+  }
+  .accountText {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 129%;
+    letter-spacing: -0.02em;
+  }
+  .containerButton {
+    gap: 20px;
+    margin-top: 60px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .formContainer {
+    border-radius: 30px;
+    width: 600px;
+    height: 736px;
+  }
 }

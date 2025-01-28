@@ -13,6 +13,7 @@ import {
 import Loading from "../Loading/Loading";
 import Layout from "../Layout/Layout";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import PageContainer from "../PageContainer/PageContainer";
 
 const RegistrationPage = lazy(() =>
   import("../../Page/RegistrationPage/RegistrationPage")
@@ -33,9 +34,9 @@ function App() {
 
   useEffect(() => {
     const initializeApp = async () => {
-      await dispatch(refreshToken()); // Восстанавливаем токен
+      await dispatch(refreshToken());
       if (token) {
-        dispatch(getCurrentUser()); // Загружаем текущего пользователя
+        dispatch(getCurrentUser());
       }
     };
 
@@ -48,39 +49,41 @@ function App() {
 
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
-      <Suspense fallback={<Loading />}>
-        {isAuthenticated && <Layout />}
-        <Routes>
-          {!isAuthenticated && (
-            <>
-              <Route path="/" element={<Navigate to="/register" />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegistrationPage />} />
-            </>
-          )}
+      <PageContainer>
+        <Toaster position="top-right" reverseOrder={false} />
+        <Suspense fallback={<Loading />}>
+          {isAuthenticated && <Layout />}
+          <Routes>
+            {!isAuthenticated && (
+              <>
+                <Route path="/" element={<Navigate to="/register" />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegistrationPage />} />
+              </>
+            )}
 
-          {isAuthenticated && (
-            <>
-              <Route
-                path="/recommended"
-                element={
-                  <ProtectedRoute>
-                    <RecommendedPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/"
-                element={<Navigate to="/recommended" replace />}
-              />
-              <Route path="/library" element={<MyLibrary />} />
-              <Route path="/my-reading/:bookId" element={<MyReading />} />
-            </>
-          )}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
+            {isAuthenticated && (
+              <>
+                <Route
+                  path="/recommended"
+                  element={
+                    <ProtectedRoute>
+                      <RecommendedPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/"
+                  element={<Navigate to="/recommended" replace />}
+                />
+                <Route path="/library" element={<MyLibrary />} />
+                <Route path="/my-reading/:bookId" element={<MyReading />} />
+              </>
+            )}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </PageContainer>
     </>
   );
 }

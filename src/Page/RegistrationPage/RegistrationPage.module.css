@@ -3,3 +3,11 @@
   flex-direction: column;
   gap: 20px;
 }
+
+@media screen and (min-width: 1440px) {
+  .containerPage {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+}

@@ -1,3 +1,20 @@
 .logo {
   margin-bottom: 40px;
 }
+.logoTablet {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .logoTablet {
+    display: block;
+    margin-bottom: 150px;
+  }
+  .logo {
+    display: none;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .logoTablet {
+    display: block;
+  }
+}

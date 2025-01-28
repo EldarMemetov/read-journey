@@ -1,6 +1,7 @@
 .homeImage {
   width: 90%;
   height: auto;
+  display: block;
 }
 .homeContainer {
   display: flex;
@@ -9,4 +10,35 @@
   padding: 20px 40px 0;
   background: #1f1f1f;
   border-radius: 30px;
+  display: block;
+}
+.homeImageTablet {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .homeContainer {
+    display: none;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .homeContainer {
+    display: block;
+  }
+  .homeImage {
+    display: none;
+  }
+  .homeImageTablet {
+    display: block;
+    width: 405px;
+    height: 734px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .homeContainer {
+    flex-direction: row;
+    min-width: 600px;
+    min-height: 736px;
+    padding-top: 40px;
+  }
 }
