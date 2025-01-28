@@ -22,6 +22,7 @@ const initialState = {
     bookTitle: "",
     author: "",
   },
+  bookDetails: null,
 };
 
 const booksReducer = createSlice({
@@ -154,13 +155,13 @@ const booksReducer = createSlice({
         state.error = action.payload;
       })
 
-      // Get book by ID
       .addCase(getBookById.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getBookById.fulfilled, (state) => {
+      .addCase(getBookById.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.bookDetails = action.payload;
         // Optional: handle the retrieved book information if necessary
       })
       .addCase(getBookById.rejected, (state, action) => {

@@ -48,7 +48,8 @@ export default function RecommendedBooks({
 
   const handleAddToLibrary = async (book) => {
     const isAlreadyAdded = libraryBooks.some(
-      (libraryBook) => libraryBook._id === book._id
+      (libraryBook) =>
+        libraryBook.title === book.title && libraryBook.author === book.author
     );
 
     if (isAlreadyAdded) {
@@ -58,10 +59,11 @@ export default function RecommendedBooks({
 
     try {
       await dispatch(addBookFromRecommendations(book._id)).unwrap();
-      toast.success("Book added to library successfully!");
+      toast.success("Book successfully added to your library!");
+
       setIsModalVisible(true);
     } catch (error) {
-      toast.error("Failed to add the book to the library.");
+      toast.error("Failed to add the book to your library.");
       console.error(error);
     }
   };

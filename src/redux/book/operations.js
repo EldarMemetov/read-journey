@@ -247,7 +247,7 @@ export const getBookById = createAsyncThunk(
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      return response.data;
+      return response.data; // возвращаем данные книги
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||

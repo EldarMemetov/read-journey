@@ -4,10 +4,11 @@ import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
-import { refreshToken } from "../../redux/auth/operations";
+import { refreshToken, getCurrentUser } from "../../redux/auth/operations";
 import {
   selectIsAuthenticated,
   selectIsLoading,
+  selectAuthToken,
 } from "../../redux/auth/selectors";
 import Loading from "../Loading/Loading";
 import Layout from "../Layout/Layout";
@@ -28,10 +29,18 @@ function App() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isLoading = useSelector(selectIsLoading);
+  const token = useSelector(selectAuthToken);
 
   useEffect(() => {
-    dispatch(refreshToken());
-  }, [dispatch]);
+    const initializeApp = async () => {
+      await dispatch(refreshToken()); // Восстанавливаем токен
+      if (token) {
+        dispatch(getCurrentUser()); // Загружаем текущего пользователя
+      }
+    };
+
+    initializeApp();
+  }, [dispatch, token]);
 
   if (isLoading) {
     return <Loading />;
@@ -66,7 +75,7 @@ function App() {
                 element={<Navigate to="/recommended" replace />}
               />
               <Route path="/library" element={<MyLibrary />} />
-              <Route path="/my-reading" element={<MyReading />} />
+              <Route path="/my-reading/:bookId" element={<MyReading />} />
             </>
           )}
           <Route path="*" element={<NotFoundPage />} />

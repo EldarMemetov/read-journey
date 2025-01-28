@@ -67,7 +67,14 @@ export const signin = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   "users/current",
   async (_, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token; // Get token from state
+    if (!token) {
+      toast.error("Token is missing.");
+      return thunkAPI.rejectWithValue("Token is missing.");
+    }
+
     try {
+      setAuthHeader(token); // Ensure the token is set in the header
       const response = await axios.get("users/current");
       return response.data;
     } catch (error) {

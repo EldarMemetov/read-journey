@@ -13,18 +13,26 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./auth/slice";
 import booksReducer from "./book/slice";
 
-const persistConfig = {
+const persistAuthConfig = {
   key: "auth",
   storage,
-  whitelist: ["token", "refreshToken"],
+  whitelist: ["token", "refreshToken", "user"],
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
+
+const persistBooksConfig = {
+  key: "books",
+  storage,
+  whitelist: ["items", "recommended"],
+};
+
+const persistedBooksReducer = persistReducer(persistBooksConfig, booksReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    books: booksReducer,
+    books: persistedBooksReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

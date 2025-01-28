@@ -77,3 +77,123 @@
   flex-direction: column;
   gap: 15px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.startPageTitle {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pageInput {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.readingButton {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.contentContainer {
+  margin-top: 20px;
+}
+
+.diaryTitle {
+  font-weight: 700;
+  font-size: 18px;
+  color: #f9f9f9;
+}
+
+.diaryEntries {
+  display: flex;
+  flex-direction: column;
+}
+
+.diaryEntry {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.entryDate {
+  font-weight: 700;
+  font-size: 12px;
+  color: #f9f9f9;
+}
+
+.pagesRead {
+  font-weight: 500;
+  font-size: 14px;
+  color: #f9f9f9;
+}
+
+.percentage {
+  font-weight: 500;
+  font-size: 14px;
+  color: #f9f9f9;
+}
+
+.readingSpeed {
+  font-weight: 500;
+  font-size: 10px;
+  text-align: center;
+  color: #686868;
+}
+
+.statsTitle {
+  font-weight: 700;
+  font-size: 18px;
+  color: #f9f9f9;
+}
+
+.statisticsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.totalPercentage {
+  font-weight: 700;
+  font-size: 18px;
+  color: #f9f9f9;
+}
+
+.percentageCircle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #1f1f1f;
+}
+
+.circle {
+  transform: rotate(-90deg);
+}
+
+.progressCircle {
+  fill: none;
+  stroke: #1f1f1f;
+  stroke-width: 10px;
+  stroke-dasharray: 628;
+}
+
+.totalPages {
+  font-weight: 500;
+  font-size: 10px;
+  color: #686868;
+  text-align: center;
+}

@@ -1,0 +1,19 @@
+.nameContainer {
+  border-radius: 50%;
+  background-color: #262626;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #f9f9f9;
+}

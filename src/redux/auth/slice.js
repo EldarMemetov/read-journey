@@ -37,7 +37,12 @@ const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
-        state.user = action.payload.user;
+
+        state.user = {
+          name: action.payload.name,
+          email: action.payload.email,
+        };
+
         state.isLoading = false;
       })
       .addCase(signup.rejected, (state, action) => {
@@ -51,7 +56,12 @@ const authSlice = createSlice({
       .addCase(signin.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
-        state.user = action.payload.user;
+
+        state.user = {
+          name: action.payload.name,
+          email: action.payload.email,
+        };
+
         state.isLoading = false;
       })
       .addCase(signin.rejected, (state, action) => {
@@ -67,6 +77,7 @@ const authSlice = createSlice({
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
+        state.user = action.payload.user;
         state.isLoading = false;
       })
       .addCase(refreshToken.rejected, (state, action) => {

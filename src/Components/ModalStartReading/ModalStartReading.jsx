@@ -1,12 +1,12 @@
 import style from "./ModalStartReading.module.css";
 import Icon from "../Icon/Icon";
 import { useNavigate } from "react-router-dom";
-// import bookPlaceholder from "../../image/book.png";
+
 export default function ModalStartReading({ book, onClose }) {
   const navigate = useNavigate();
 
   const handleStartReading = () => {
-    navigate("/my-reading", { state: { book } });
+    navigate(`/my-reading/${book._id}`);
   };
   const image =
     "https://res.cloudinary.com/drfvfno3o/image/upload/v1699733055/books/8.webp";
