@@ -5,7 +5,7 @@
   padding: 0 16px;
   background: #1f1f1f;
   border-radius: 15px;
-  width: 335px;
+  width: 380px;
   height: 57px;
   margin-bottom: 10px;
 }
@@ -24,4 +24,46 @@
 .containerName {
   display: flex;
   gap: 10px;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: #1f1f1f;
+    border-radius: 15px;
+    width: 730px;
+    height: 57px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .logo {
+    flex: 1;
+  }
+
+  .navContent {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .containerName {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+  @media screen and (min-width: 768px) {
+    .header {
+      max-width: 760px;
+    }
+  }
+}
+@media screen and (min-width: 1440px) {
+  .header {
+    width: 1160px;
+  }
 }

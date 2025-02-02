@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 14px;
+  border-radius: 12px;
+  padding: 20px 15px;
+  background: #262626;
+}
+.title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #686868;
+}
+
+.titleSpan {
+  color: #f9f9f9;
+}
+.img {
+  width: 40px;
+  height: 40px;
+}

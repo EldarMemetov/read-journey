@@ -1,56 +1,48 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSwipeable } from "react-swipeable";
+import { useMediaQuery } from "react-responsive";
 import { getUserBooks, deleteBook } from "../../redux/book/operations";
 import style from "./AddBookLibrary.module.css";
 import bookPlaceholder from "../../image/book.png";
 import { FiTrash2 } from "react-icons/fi";
 import ModalStartReading from "../ModalStartReading/ModalStartReading";
+
 export default function AddBookLibrary() {
   const dispatch = useDispatch();
   const { items: books, isLoading } = useSelector((state) => state.books);
 
-  const [expandedBook, setExpandedBook] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 1;
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [expandedTitles, setExpandedTitles] = useState({});
+
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1439 });
+  const isDesktop = useMediaQuery({ minWidth: 1440 });
+
+  const booksPerPage = isDesktop ? 5 : isTablet ? 4 : 1;
   const totalPages = Math.ceil((books?.length || 0) / booksPerPage);
 
-  const [selectedBook, setSelectedBook] = useState(null);
-  const image =
-    "https://res.cloudinary.com/drfvfno3o/image/upload/v1699733055/books/8.webp";
-  const handleOpenModal = (book) => {
-    setSelectedBook(book);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedBook(null);
-  };
   useEffect(() => {
     dispatch(getUserBooks());
   }, [dispatch]);
-
-  useEffect(() => {
-    console.log("Books from backend:", books);
-  }, [books]);
 
   const handleDeleteBook = (id) => {
     dispatch(deleteBook(id));
   };
 
-  const handleToggleTitle = (bookId) => {
-    setExpandedBook((prev) => (prev === bookId ? null : bookId));
-  };
-
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const toggleTitle = (bookId) => {
+    setExpandedTitles((prev) => ({
+      ...prev,
+      [bookId]: !prev[bookId],
+    }));
   };
 
   const handlers = useSwipeable({
@@ -58,9 +50,7 @@ export default function AddBookLibrary() {
     onSwipedRight: handlePrevPage,
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  if (isLoading) return <p>Loading...</p>;
 
   if (!books || books.length === 0) {
     return (
@@ -107,42 +97,40 @@ export default function AddBookLibrary() {
           {currentBooks.map((book) => (
             <li key={book._id} className={style.bookItem}>
               <img
-                src={book.imageUrl || image}
-                alt="img"
+                src={book.imageUrl || bookPlaceholder}
+                alt="Book Cover"
                 className={style.bookImage}
-                onClick={() => handleOpenModal(book)}
+                onClick={() => setSelectedBook(book)}
               />
-
               <div className={style.bookDetails}>
                 <h3 className={style.titleBook}>
-                  {book.title.length > 10 && expandedBook !== book._id
-                    ? `${book.title.slice(0, 10)}`
-                    : book.title}
-                  {book.title.length > 10 && expandedBook !== book._id && (
+                  {expandedTitles[book._id] || book.title.length <= 5
+                    ? book.title
+                    : `${book.title.slice(0, 5)}...`}
+                  {book.title.length > 5 && (
                     <span
                       className={style.toggleButton}
-                      onClick={() => handleToggleTitle(book._id)}
+                      onClick={() => toggleTitle(book._id)}
                     >
-                      ...
+                      {expandedTitles[book._id] ? " 🔽" : " ..."}
                     </span>
                   )}
                 </h3>
-                <div className={style.containerTextTrash}>
-                  <p className={style.author}>{book.author}</p>
-                  <div className={style.containerTrash}>
-                    <FiTrash2
-                      className={style.trashIcon}
-                      onClick={() => handleDeleteBook(book._id)}
-                    />
-                  </div>
-                </div>
+                <p className={style.author}>{book.author}</p>
+                <FiTrash2
+                  className={style.trashIcon}
+                  onClick={() => handleDeleteBook(book._id)}
+                />
               </div>
             </li>
           ))}
         </ul>
       </div>
       {selectedBook && (
-        <ModalStartReading book={selectedBook} onClose={handleCloseModal} />
+        <ModalStartReading
+          book={selectedBook}
+          onClose={() => setSelectedBook(null)}
+        />
       )}
     </div>
   );

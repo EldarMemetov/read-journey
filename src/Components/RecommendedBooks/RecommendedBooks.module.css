@@ -11,16 +11,15 @@
   overflow: hidden;
   padding: 40px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   border-radius: 30px;
   background: #1f1f1f;
+  flex-direction: column;
 }
 
 .containerButton {
   display: flex;
-  gap: 120px;
   align-items: center;
+  justify-content: space-between;
 }
 .buttonNext {
   display: flex;
@@ -33,10 +32,12 @@
 }
 
 .carouselList {
-  display: flex;
+  display: grid;
   gap: 20px;
+  justify-content: center;
   transition: transform 0.5s ease-in-out;
-  margin-top: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 10px;
 }
 
 .prevArrow,
@@ -106,4 +107,19 @@
 .bookItem {
   cursor: pointer;
   transition: transform 0.3s ease;
+}
+@media screen and (min-width: 768px) {
+  .carouselList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .carouselList {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .slideshowContainer {
+    width: 100%;
+    gap: 40px;
+  }
 }

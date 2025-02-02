@@ -109,3 +109,37 @@
   margin-left: auto;
   margin-right: auto;
 }
+@media screen and (min-width: 768px) {
+  .userBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  .navList {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navLink {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .navLink:hover {
+    color: #4f92f7;
+  }
+
+  .active {
+    border-bottom: 2px solid #4f92f7;
+  }
+  .footerButton {
+    margin-bottom: 0px;
+  }
+}

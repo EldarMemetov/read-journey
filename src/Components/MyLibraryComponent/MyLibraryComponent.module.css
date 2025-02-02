@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   justify-content: center;
   border-radius: 30px;
-  background: #1f1f1f;
 }
 .containerMyLibrary {
   display: flex;
@@ -20,4 +19,25 @@
   line-height: 100%;
   letter-spacing: -0.02em;
   color: #f9f9f9;
+}
+@media screen and (min-width: 768px) {
+  .containerMyLibrary {
+    display: flex;
+    gap: 0px;
+    justify-content: space-between;
+  }
+  .container {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    background: #1f1f1f;
+    border-radius: 30px;
+    padding: 40px;
+    width: 100%;
+    justify-content: space-between;
+  }
 }

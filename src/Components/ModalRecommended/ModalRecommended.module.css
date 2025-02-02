@@ -33,3 +33,9 @@
   color: white;
   stroke: white;
 }
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 50px;
+    width: 450px;
+  }
+}

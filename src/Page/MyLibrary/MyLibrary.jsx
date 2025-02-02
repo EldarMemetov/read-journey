@@ -7,16 +7,18 @@ import MyLibraryComponent from "../../Components/MyLibraryComponent/MyLibraryCom
 export default function MyLibrary() {
   return (
     <div className={style.container}>
-      <RecommendedBooks
-        limit={3}
-        imageWidth={71}
-        imageHeight={107}
-        title="Recommended books"
-        containerButtonNext={style.classNameButton}
-        NextSlideshowContainer={style.slideshowContainer}
-        extraActions={<ButtonLink />}
-        filterActions={<BookAddFilter />}
-      />
+      <div className={style.containerContent}>
+        <BookAddFilter />
+        <RecommendedBooks
+          limit={3}
+          imageWidth={71}
+          imageHeight={107}
+          title="Recommended books"
+          containerButtonNext={style.classNameButton}
+          NextSlideshowContainer={style.slideshowContainer}
+          extraActions={<ButtonLink />}
+        />
+      </div>
       <MyLibraryComponent />
     </div>
   );
