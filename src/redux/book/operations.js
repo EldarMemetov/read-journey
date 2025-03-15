@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 const API_URL = "https://readjourney.b.goit.study/api";
 import { refreshToken } from "../auth/operations";
 
-// Get recommended books
 export const getRecommendedBooks = createAsyncThunk(
   "books/getRecommended",
   async ({ page, limit, filters }, { getState, dispatch }) => {
@@ -50,7 +49,6 @@ export const getRecommendedBooks = createAsyncThunk(
   }
 );
 
-// Add a new book
 export const addBook = createAsyncThunk(
   "books/addBook",
   async (bookData, { getState, dispatch, thunkAPI }) => {
@@ -78,7 +76,6 @@ export const addBook = createAsyncThunk(
   }
 );
 
-// Операция для удаления книги
 export const deleteBook = createAsyncThunk(
   "books/deleteBook",
   async (bookId, { getState, dispatch, thunkAPI }) => {
@@ -104,7 +101,6 @@ export const deleteBook = createAsyncThunk(
   }
 );
 
-// Add book from recommendations
 export const addBookFromRecommendations = createAsyncThunk(
   "books/addFromRecommendations",
   async (bookId, { getState, thunkAPI }) => {
@@ -132,7 +128,6 @@ export const addBookFromRecommendations = createAsyncThunk(
   }
 );
 
-// Get user's books
 export const getUserBooks = createAsyncThunk(
   "books/getUserBooks",
   async (_, { getState, thunkAPI }) => {
@@ -155,7 +150,6 @@ export const getUserBooks = createAsyncThunk(
   }
 );
 
-// Save the start of reading the book
 export const startReadingBook = createAsyncThunk(
   "books/startReading",
   async (bookData, { getState, thunkAPI }) => {
@@ -164,6 +158,7 @@ export const startReadingBook = createAsyncThunk(
       const response = await axios.post(
         `${API_URL}/books/reading/start`,
         bookData,
+
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
@@ -211,17 +206,39 @@ export const finishReadingBook = createAsyncThunk(
   }
 );
 
-// Delete the reading of the book
 export const deleteReading = createAsyncThunk(
   "books/deleteReading",
-  async (_, { getState, thunkAPI }) => {
+  async ({ bookId, readingIndex }, { getState, thunkAPI }) => {
     const { auth } = getState();
     try {
-      await axios.delete(`${API_URL}/books/reading`, {
+      const book = await axios.get(`${API_URL}/books/${bookId}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+
+      const readingId = book.data.progress[readingIndex]?._id;
+
+      if (!readingId) {
+        throw new Error("Reading ID not found");
+      }
+
+      console.log(
+        "Deleting reading with Book ID:",
+        bookId,
+        "and Reading ID:",
+        readingId
+      );
+
+      await axios.delete(
+        `${API_URL}/books/reading?bookId=${bookId}&readingId=${readingId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+
       toast.success("Reading deleted successfully!");
       return true;
     } catch (error) {
@@ -235,8 +252,6 @@ export const deleteReading = createAsyncThunk(
   }
 );
 
-// Get book info by ID
-
 export const getBookById = createAsyncThunk(
   "books/getById",
   async (bookId, { getState, thunkAPI }) => {
@@ -247,7 +262,7 @@ export const getBookById = createAsyncThunk(
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      return response.data; // возвращаем данные книги
+      return response.data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||

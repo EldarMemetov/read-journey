@@ -1,0 +1,50 @@
+.container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  text-align: center;
+}
+
+.svg {
+  width: 220px;
+  height: 220px;
+}
+
+.innerCircle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-color: #1f1f1f;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.innerCircle span {
+  color: #fff;
+  font-size: 40px;
+}
+
+.progressText {
+  color: #f9f9f9;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.pagesReadText {
+  color: #686868;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+.containerContent {
+  border-radius: 12px;
+  width: 295px;
+  height: 211px;
+  background: #262626;
+}

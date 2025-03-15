@@ -89,36 +89,37 @@ export const getCurrentUser = createAsyncThunk(
 );
 
 // Get fresh token (refresh token)
-export const refreshToken = createAsyncThunk(
-  "auth/refreshToken",
-  async (_, thunkAPI) => {
-    const refreshToken = localStorage.getItem("refreshToken");
+// Refresh token action
+// export const refreshToken = createAsyncThunk(
+//   "auth/refreshToken",
+//   async (_, thunkAPI) => {
+//     const refreshToken = localStorage.getItem("refreshToken");
 
-    if (!refreshToken) {
-      return thunkAPI.rejectWithValue("No refresh token available");
-    }
+//     if (!refreshToken) {
+//       return thunkAPI.rejectWithValue("No refresh token available");
+//     }
 
-    try {
-      const response = await axios.post("users/current/refresh", {
-        token: refreshToken,
-      });
+//     try {
+//       const response = await axios.post("users/current/refresh", {
+//         token: refreshToken,
+//       });
 
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
+//       // Save new tokens to localStorage
+//       localStorage.setItem("accessToken", response.data.accessToken);
+//       localStorage.setItem("refreshToken", response.data.refreshToken);
 
-      setAuthHeader(response.data.accessToken);
-
-      return {
-        token: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      };
-    } catch (error) {
-      toast.error(error, "Failed to refresh token. Please log in again.");
-      thunkAPI.dispatch(signout());
-      return thunkAPI.rejectWithValue("Token refresh failed");
-    }
-  }
-);
+//       // Return the new tokens to update Redux state
+//       return {
+//         token: response.data.accessToken,
+//         refreshToken: response.data.refreshToken,
+//       };
+//     } catch (error) {
+//       toast.error(error, "Failed to refresh token. Please log in again.");
+//       thunkAPI.dispatch(signout());
+//       return thunkAPI.rejectWithValue("Token refresh failed");
+//     }
+//   }
+// );
 
 // Sign out (logout)
 export const signout = createAsyncThunk(
@@ -145,6 +146,38 @@ export const signout = createAsyncThunk(
       toast.error(errorMessage);
 
       return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+export const refreshToken = createAsyncThunk(
+  "auth/refreshToken",
+  async (_, thunkAPI) => {
+    const storedRefreshToken = localStorage.getItem("refreshToken");
+    const parsedRefreshToken = storedRefreshToken
+      ? storedRefreshToken.replace(/^"(.*)"$/, "$1")
+      : null;
+
+    if (!parsedRefreshToken) {
+      return thunkAPI.rejectWithValue("No refresh token available");
+    }
+
+    try {
+      const response = await axios.post("users/current/refresh", {
+        refreshToken: parsedRefreshToken,
+      });
+
+      // Сохраняем новые токены без лишних кавычек
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+
+      return {
+        token: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      };
+    } catch (error) {
+      toast.error(error, "Failed to refresh token. Please log in again.");
+      thunkAPI.dispatch(signout());
+      return thunkAPI.rejectWithValue("Token refresh failed");
     }
   }
 );

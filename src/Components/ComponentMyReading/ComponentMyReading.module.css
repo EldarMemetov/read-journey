@@ -79,3 +79,11 @@
 .recordButtonWrapper:active .recordButton {
   transform: scale(0.9);
 }
+.textNoBook {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  color: #686868;
+  margin-bottom: 20px;
+}

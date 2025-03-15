@@ -2,6 +2,7 @@
   border-radius: 30px;
   background: #1f1f1f;
   padding: 20px;
+  height: 580px;
 }
 
 .button {
@@ -196,4 +197,270 @@
   font-size: 10px;
   color: #686868;
   text-align: center;
+}
+
+.contentContainer {
+  margin-top: 20px;
+}
+
+.diaryTitle,
+.statsTitle {
+  font-weight: 700;
+  font-size: 18px;
+  color: #f9f9f9;
+  margin-bottom: 10px;
+}
+
+.entryDate {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin-bottom: 16px;
+}
+
+.pagesRead {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+
+.percentage {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin-bottom: 6px;
+}
+
+.readingSpeed {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+}
+
+.deleteIcon {
+  cursor: pointer;
+  color: #f9f9f9;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.statisticsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.percentageCircle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.circle {
+  transform: rotate(-90deg);
+}
+
+.progressCircle {
+  fill: none;
+  stroke: #007bff;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s;
+}
+
+.totalPercentage {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+
+.totalPages {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+}
+.container {
+  border-radius: 30px;
+  padding: 40px 20px;
+  background: #1f1f1f;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.bookContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bookImage {
+  width: 140px;
+  height: 213px;
+}
+.titleBook {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  width: 150px;
+}
+.author {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  color: #686868;
+  margin-bottom: 20px;
+}
+.recordButtonWrapper {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transition: all 0.3s ease;
+}
+
+.recordButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: red;
+  cursor: pointer;
+  border: none;
+}
+
+.recording {
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.recordButtonWrapper:hover .recordButton {
+  transform: scale(1.1);
+}
+
+.recordButtonWrapper:active .recordButton {
+  transform: scale(0.9);
+}
+.listInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.itemInfo {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 126px;
+}
+.containerDate {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.pagesInfo {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.graphics {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+.deleteIcon {
+  margin-top: 0px;
+}
+.pagesRead {
+  margin-bottom: 16px;
+}
+.diaryEntries {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #333;
+}
+
+.diaryEntries::-webkit-scrollbar {
+  width: 6px;
+}
+
+.diaryEntries::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.diaryEntries::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  gap: 180px;
+}
+.tab {
+  color: #686868;
+}
+.tab,
+.activeTab {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.activeTab {
+  color: white;
+}
+.iconContainer {
+  display: flex;
+  gap: 8px;
 }
