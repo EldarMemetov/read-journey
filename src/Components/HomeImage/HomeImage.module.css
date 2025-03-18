@@ -38,7 +38,7 @@
   .homeContainer {
     flex-direction: row;
     min-width: 600px;
-    min-height: 736px;
+    height: 800px;
     padding-top: 40px;
   }
 }

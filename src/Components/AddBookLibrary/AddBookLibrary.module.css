@@ -4,6 +4,11 @@
   align-items: center;
   gap: 10px;
 }
+.containerFilterNext {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
 .containerImage {
   border-radius: 100%;
   background: #262626;
@@ -13,7 +18,13 @@
   align-items: center;
   justify-content: center;
 }
-
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
 .titleInfo {
   font-weight: 500;
   font-size: 14px;
@@ -163,10 +174,18 @@
   .bookList {
     margin-right: auto;
   }
+  .containerFilterNext {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @media screen and (min-width: 1440px) {
   .buttonNext {
     justify-content: flex-start;
+  }
+  .containerFilterNext {
+    margin-bottom: 180px;
   }
 }

@@ -9,15 +9,16 @@ import {
 import { selectBooks } from "../../redux/book/selectors";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaBook, FaChartPie, FaTrashAlt } from "react-icons/fa";
 import styles from "./AddReading.module.css";
-import graphics from "../../image/graphics.png";
 import ProgressCircle from "../ProgressCircle/ProgressCircle";
 import ModalBookEnd from "../ModalBookEnd/ModalBookEnd";
 import noProgress from "../../image/sun.png";
+import Icon from "../Icon/Icon";
+
 export default function AddReading() {
   const { bookId } = useParams();
   const dispatch = useDispatch();
+
   const book = useSelector((state) =>
     selectBooks(state).find((item) => item._id === bookId)
   );
@@ -124,6 +125,7 @@ export default function AddReading() {
 
   const calculateReadingProgress = () => {
     if (!book || !book.totalPages || !book.progress) return 0;
+
     const totalPagesRead = book.progress.reduce((sum, entry) => {
       const pagesRead = Math.max(
         (entry.finishPage ?? 0) - (entry.startPage ?? 0),
@@ -131,7 +133,10 @@ export default function AddReading() {
       );
       return sum + pagesRead;
     }, 0);
-    return ((totalPagesRead / book.totalPages) * 100).toFixed(1);
+
+    if (totalPagesRead >= book.totalPages) return 100;
+
+    return Math.round((totalPagesRead / book.totalPages) * 100);
   };
 
   const getPagesPerHour = (pagesRead, readingTimeInMinutes, entry) => {
@@ -164,6 +169,8 @@ export default function AddReading() {
     setIsModalOpen(false);
   };
 
+  const hasDiaryEntries = book?.progress?.length > 0;
+
   return (
     <div className={styles.container}>
       <div className={styles.containerForm}>
@@ -186,94 +193,125 @@ export default function AddReading() {
         </form>
       </div>
       <div className={styles.containerMainTablet}>
-        <div className={styles.tabs}>
-          <div className={styles.iconContainer}>
-            <div
-              className={activeTab === "diary" ? styles.activeTab : styles.tab}
-              onClick={() => setActiveTab("diary")}
-            >
-              <FaBook />
+        {hasDiaryEntries && (
+          <div className={styles.tabs}>
+            <div className={styles.iconContainer}>
+              <div
+                className={
+                  activeTab === "diary" ? styles.activeTab : styles.tab
+                }
+                onClick={() => setActiveTab("diary")}
+              >
+                <Icon
+                  name="icon-hourglass-12"
+                  size={16}
+                  className={
+                    activeTab === "diary"
+                      ? styles.activeIcon
+                      : styles.inactiveIcon
+                  }
+                />
+              </div>
+              <div
+                className={
+                  activeTab === "statistics" ? styles.activeTab : styles.tab
+                }
+                onClick={() => setActiveTab("statistics")}
+              >
+                <Icon
+                  name="icon-pie-chart-02"
+                  size={16}
+                  className={
+                    activeTab === "statistics"
+                      ? styles.activeIcon
+                      : styles.inactiveIcon
+                  }
+                />
+              </div>
             </div>
-            <div
-              className={
-                activeTab === "statistics" ? styles.activeTab : styles.tab
-              }
-              onClick={() => setActiveTab("statistics")}
-            >
-              <FaChartPie />
-            </div>
-          </div>
 
-          <div className={styles.textContainer}>
-            {activeTab === "diary" && (
-              <h2 className={styles.diaryTitle}>Diary</h2>
-            )}
-            {activeTab === "statistics" && (
-              <h2 className={styles.statsTitle}>Statistics</h2>
-            )}
-          </div>
-        </div>
-
-        {activeTab === "diary" && (
-          <div className={styles.contentContainer}>
-            <div className={styles.diaryEntries}>
-              {book && book.progress.length > 0 ? (
-                <ul className={styles.listInfo}>
-                  {book.progress.map((entry, index) => {
-                    const pagesRead = entry.finishPage - entry.startPage || 0;
-                    const percentage = book.totalPages
-                      ? ((pagesRead / book.totalPages) * 100).toFixed(1)
-                      : 0;
-                    const readingTimeInMinutes = getReadingTimeInMinutes(entry);
-                    const pagesPerHour = getPagesPerHour(
-                      pagesRead,
-                      readingTimeInMinutes,
-                      entry
-                    );
-                    return (
-                      <li key={index} className={styles.itemInfo}>
-                        <div className={styles.containerDate}>
-                          <p className={styles.entryDate}>
-                            {formatDate(entry.startReading)}
-                          </p>
-                          <p className={styles.percentage}>{percentage}%</p>
-                          <p className={styles.readingSpeed}>
-                            {readingTimeInMinutes > 0
-                              ? `${readingTimeInMinutes} minutes`
-                              : "No data"}
-                          </p>
-                        </div>
-                        <div className={styles.pagesInfo}>
-                          <p className={styles.pagesRead}>{pagesRead} pages</p>
-                          <div className={styles.graphics}>
-                            <img src={graphics} alt="" />
-                            <FaTrashAlt
-                              className={styles.deleteIcon}
-                              onClick={() => deleteDiaryEntry(index)}
-                            />
-                          </div>
-                          <p className={styles.readingSpeed}>
-                            {pagesPerHour !== "No data"
-                              ? `${pagesPerHour} pages per hour`
-                              : "No data"}
-                          </p>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <div className={styles.containerProgress}>
-                  <h2 className={styles.titleTextProgress}>Progress</h2>
-                  <p className={styles.infoTextProgress}>
-                    Here you will see when and how much you read. To record,
-                    click on the red button above.
-                  </p>
-                  <img src={noProgress} alt="" />
-                </div>
+            <div className={styles.textContainer}>
+              {activeTab === "diary" && (
+                <h2 className={styles.diaryTitle}>Diary</h2>
+              )}
+              {activeTab === "statistics" && (
+                <h2 className={styles.statsTitle}>Statistics</h2>
               )}
             </div>
           </div>
+        )}
+
+        {activeTab === "diary" && book && book.progress.length > 0 ? (
+          <ul className={styles.listInfo}>
+            {book.progress.map((entry, index) => {
+              const isFirstEntry = index === 0;
+              const iconName = isFirstEntry ? "icon-active" : "icon-no-active";
+
+              const pagesRead = entry.finishPage - entry.startPage || 0;
+              const percentage = book.totalPages
+                ? ((pagesRead / book.totalPages) * 100).toFixed(1)
+                : 0;
+              const readingTimeInMinutes = getReadingTimeInMinutes(entry);
+              const pagesPerHour = getPagesPerHour(
+                pagesRead,
+                readingTimeInMinutes,
+                entry
+              );
+
+              return (
+                <li key={index} className={styles.itemInfo}>
+                  <div className={styles.containerDate}>
+                    <div className={styles.containerInfoData}>
+                      <Icon
+                        name={iconName}
+                        size={16}
+                        className={`${styles.iconWithLine}`}
+                      />
+                      <p className={styles.entryDate}>
+                        {formatDate(entry.startReading)}
+                      </p>
+                    </div>
+                    <p className={styles.percentage}>{percentage}%</p>
+                    <p className={styles.readingSpeed}>
+                      {readingTimeInMinutes > 0
+                        ? `${readingTimeInMinutes} minutes`
+                        : "No data"}
+                    </p>
+                  </div>
+                  <div className={styles.pagesInfo}>
+                    <p className={styles.pagesRead}>{pagesRead} pages</p>
+                    <div className={styles.graphics}>
+                      <Icon name="icon-block" className={styles.graf} />
+                      <Icon
+                        name="icon-trash"
+                        size={14}
+                        className={styles.deleteIcon}
+                        onClick={() => {
+                          deleteDiaryEntry(index);
+                        }}
+                      />
+                    </div>
+                    <p className={styles.readingSpeed}>
+                      {pagesPerHour !== "No data"
+                        ? `${pagesPerHour} pages per hour`
+                        : "No data"}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          activeTab === "diary" && (
+            <div className={styles.containerProgress}>
+              <h2 className={styles.titleTextProgress}>Progress</h2>
+              <p className={styles.infoTextProgress}>
+                Here you will see when and how much you read. To record, click
+                on the red button above.
+              </p>
+              <img src={noProgress} alt="" />
+            </div>
+          )
         )}
 
         {activeTab === "statistics" && (

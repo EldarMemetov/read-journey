@@ -16,9 +16,8 @@
   border-radius: 50%;
   background-color: #1f1f1f;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,12 +27,22 @@
   color: #fff;
   font-size: 40px;
 }
-
-.progressText {
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: #f9f9f9;
   text-align: center;
   margin-top: 10px;
   font-weight: 500;
+  justify-content: center;
+}
+
+.progressIndicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: #30b94d;
 }
 
 .pagesReadText {
@@ -47,4 +56,10 @@
   width: 295px;
   height: 211px;
   background: #262626;
+}
+.progressIndicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: #30b94d;
 }

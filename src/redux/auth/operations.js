@@ -12,19 +12,16 @@ const clearAuthHeader = () => {
   delete axios.defaults.headers.common.Authorization;
 };
 
-// Sign up (register)
 export const signup = createAsyncThunk(
   "users/signup",
   async (newUser, thunkAPI) => {
     console.log("Sending data to server:", newUser);
     try {
       const response = await axios.post("users/signup", newUser);
-      console.log("Response from server:", response.data);
       setAuthHeader(response.data.token);
       toast.success("Registration successful!");
       return response.data;
     } catch (error) {
-      console.error("Error during signup:", error.response);
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
@@ -35,23 +32,17 @@ export const signup = createAsyncThunk(
   }
 );
 
-// Sign in (login)
 export const signin = createAsyncThunk(
   "users/signin",
   async (credentials, thunkAPI) => {
-    console.log("Attempting login with credentials:", credentials);
-
     try {
       const response = await axios.post("users/signin", credentials);
-      console.log("Login successful, server response:", response.data);
 
       setAuthHeader(response.data.token);
       toast.success("Login successful!");
 
       return response.data;
     } catch (error) {
-      console.error("Login failed, error response:", error.response);
-
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
@@ -63,18 +54,17 @@ export const signin = createAsyncThunk(
   }
 );
 
-// Get current user info
 export const getCurrentUser = createAsyncThunk(
   "users/current",
   async (_, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token; // Get token from state
+    const token = thunkAPI.getState().auth.token;
     if (!token) {
       toast.error("Token is missing.");
       return thunkAPI.rejectWithValue("Token is missing.");
     }
 
     try {
-      setAuthHeader(token); // Ensure the token is set in the header
+      setAuthHeader(token);
       const response = await axios.get("users/current");
       return response.data;
     } catch (error) {
@@ -88,40 +78,6 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
-// Get fresh token (refresh token)
-// Refresh token action
-// export const refreshToken = createAsyncThunk(
-//   "auth/refreshToken",
-//   async (_, thunkAPI) => {
-//     const refreshToken = localStorage.getItem("refreshToken");
-
-//     if (!refreshToken) {
-//       return thunkAPI.rejectWithValue("No refresh token available");
-//     }
-
-//     try {
-//       const response = await axios.post("users/current/refresh", {
-//         token: refreshToken,
-//       });
-
-//       // Save new tokens to localStorage
-//       localStorage.setItem("accessToken", response.data.accessToken);
-//       localStorage.setItem("refreshToken", response.data.refreshToken);
-
-//       // Return the new tokens to update Redux state
-//       return {
-//         token: response.data.accessToken,
-//         refreshToken: response.data.refreshToken,
-//       };
-//     } catch (error) {
-//       toast.error(error, "Failed to refresh token. Please log in again.");
-//       thunkAPI.dispatch(signout());
-//       return thunkAPI.rejectWithValue("Token refresh failed");
-//     }
-//   }
-// );
-
-// Sign out (logout)
 export const signout = createAsyncThunk(
   "users/signout",
   async (_, thunkAPI) => {
@@ -166,7 +122,6 @@ export const refreshToken = createAsyncThunk(
         refreshToken: parsedRefreshToken,
       });
 
-      // Сохраняем новые токены без лишних кавычек
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
 

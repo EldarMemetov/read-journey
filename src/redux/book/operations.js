@@ -178,7 +178,6 @@ export const startReadingBook = createAsyncThunk(
   }
 );
 
-// Save the finish of reading the book
 export const finishReadingBook = createAsyncThunk(
   "books/finishReading",
   async (bookData, { getState, thunkAPI }) => {

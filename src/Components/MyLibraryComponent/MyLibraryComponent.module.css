@@ -3,7 +3,7 @@
   padding: 40px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+
   border-radius: 30px;
 }
 .containerMyLibrary {
@@ -13,13 +13,6 @@
   gap: 80px;
 }
 
-.title {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 100%;
-  letter-spacing: -0.02em;
-  color: #f9f9f9;
-}
 @media screen and (min-width: 768px) {
   .containerMyLibrary {
     display: flex;

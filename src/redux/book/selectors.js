@@ -6,3 +6,15 @@ export const selectIsAuthenticated = (state) => Boolean(state.auth.token);
 export const selectCurrentPage = (state) => state.books.currentPage;
 export const selectTotalPages = (state) => state.books.totalPages;
 export const selectFilters = (state) => state.books.filters;
+export const selectFilteredBooks = (state) => {
+  const { books, filters } = state.books;
+  return books.filter((book) => {
+    if (filters.status === "reading") {
+      return book.progress.some((entry) => entry.status === "active");
+    }
+    if (filters.status === "finished") {
+      return book.progress.some((entry) => entry.finishPage !== undefined);
+    }
+    return true;
+  });
+};

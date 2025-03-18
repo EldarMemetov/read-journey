@@ -1,22 +1,22 @@
 import s from "./ProgressCircle.module.css";
 
 function ProgressCircle({ progress, pagesRead }) {
-  const size = 220;
-  const radius = 80;
-  const strokeWidth = 15;
+  const strokeWidth = 20;
+  const radius = 95;
+  const size = radius * 2 + strokeWidth;
   const center = size / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (circumference * progress) / 100;
 
   return (
-    <div className={s.container}>
+    <div className={s.container} style={{ width: size, height: size }}>
       <svg className={s.svg} width={size} height={size}>
         <circle
           cx={center}
           cy={center}
           r={radius}
           fill="none"
-          stroke="#1f1f1f"
+          stroke="#444"
           strokeWidth={strokeWidth}
         />
 
@@ -38,7 +38,11 @@ function ProgressCircle({ progress, pagesRead }) {
         <span>100%</span>
       </div>
 
-      <p className={s.progressText}>{progress}%</p>
+      <p className={s.progressWrapper}>
+        <span className={s.progressIndicator}></span>
+        {progress}%
+      </p>
+
       <p className={s.pagesReadText}>{pagesRead} pages read</p>
     </div>
   );

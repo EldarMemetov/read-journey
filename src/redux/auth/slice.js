@@ -30,7 +30,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Регистрация
+
       .addCase(signup.pending, (state) => {
         state.isLoading = true;
       })
@@ -49,7 +49,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // Вход
+
       .addCase(signin.pending, (state) => {
         state.isLoading = true;
       })
@@ -77,7 +77,6 @@ const authSlice = createSlice({
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
-        // state.user = action.payload.user;
         state.isLoading = false;
       })
       .addCase(refreshToken.rejected, (state, action) => {
